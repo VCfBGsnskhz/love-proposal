@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ek Baat Kehni Hai ❤️</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:system-ui,-apple-system,Segoe UI,sans-serif}
+body{
+  overflow-x:hidden;color:#fff;
+  background:radial-gradient(circle at top,#5b164d 0,#210b2d 45%,#090614 100%);
+}
+canvas{position:fixed;inset:0;pointer-events:none;z-index:1}
+.page{
+  position:relative;z-index:2;min-height:100vh;
+  display:flex;align-items:center;justify-content:center;padding:24px;
+}
+.card{
+  width:min(440px,100%);padding:32px 22px;border:1px solid rgba(255,255,255,.18);
+  border-radius:28px;text-align:center;background:rgba(15,8,24,.72);
+  backdrop-filter:blur(16px);box-shadow:0 20px 70px rgba(0,0,0,.45);
+}
+.heart{font-size:58px;animation:pulse 1.5s infinite}
+h1{font-size:32px;margin:12px 0 10px}
+h2{font-size:25px;margin:10px 0}
+p{line-height:1.7;color:#f4ddec}
+.small{font-size:13px;color:#cdb7ca}
+button{
+  border:0;border-radius:999px;padding:14px 23px;margin:8px 5px;
+  font-size:16px;font-weight:700;cursor:pointer;transition:.2s;
+}
+.primary{background:#ff4f9a;color:white;box-shadow:0 8px 25px rgba(255,79,154,.3)}
+.secondary{background:#fff;color:#552044}
+.primary:active,.secondary:active{transform:scale(.96)}
+.hidden{display:none}
+.message{
+  margin:20px 0;padding:18px;border-radius:18px;
+  background:rgba(255,255,255,.07);text-align:left;
+}
+.signature{font-weight:800;color:#ff8fc0}
+#noBtn{position:relative}
+.floating{
+ position:fixed;z-index:3;font-size:20px;animation:float 4s linear forwards;pointer-events:none
+}
+@keyframes pulse{50%{transform:scale(1.12)}}
+@keyframes float{0%{transform:translateY(20px);opacity:0}15%{opacity:1}100%{transform:translateY(-110vh) rotate(25deg);opacity:0}}
+</style>
+</head>
+<body>
+<canvas id="fx"></canvas>
+
+<section class="page" id="start">
+  <div class="card">
+    <div class="heart">❤️</div>
+    <h1>Ek baat kehni hai...</h1>
+    <p>Ye website kisi random person ke liye nahi hai.<br>
+    Agar tum yahan tak aa gayi ho, to please thoda sa time dena. 🥹</p>
+    <button class="primary" onclick="show('letter')">Open My Heart 💌</button>
+  </div>
+</section>
+
+<section class="page hidden" id="letter">
+  <div class="card">
+    <h2>Dear <span id="herName">Someone Special</span> ❤️</h2>
+    <div class="message">
+      <p>
+        Mujhe nahi pata ki meri ye baat tumhare dil tak kaise पहुंचेगी,
+        lekin jo bhi keh raha hoon, dil se keh raha hoon.
+      </p>
+      <p>
+        Tumse baat karna, tumhari smile dekhna aur tumhare saath waqt bitana
+        mujhe genuinely special feel karata hai.
+      </p>
+      <p>
+        Main tumse ek chance maangna chahta hoon—ek aisa chance jisme hum
+        ek dusre ko aur achhe se jaan sakein. ❤️
+      </p>
+    </div>
+    <button class="primary" onclick="show('proposal')">Ek Last Baat... 💗</button>
+  </div>
+</section>
+
+<section class="page hidden" id="proposal">
+  <div class="card">
+    <div class="heart">🌹</div>
+    <h1>Will you be mine?</h1>
+    <p>Pressure bilkul nahi. Tumhara honest answer mere liye important hai. ❤️</p>
+    <button class="primary" onclick="yes()">YES ❤️</button>
+    <button class="secondary" id="noBtn" onclick="no()">NO 🙈</button>
+    <p class="small">Jo dil kahe, wahi choose karna.</p>
+  </div>
+</section>
+
+<section class="page hidden" id="yes">
+  <div class="card">
+    <div class="heart">💖</div>
+    <h1>You said YES!</h1>
+    <p>Okay... ab meri smile control nahi ho rahi. 🥹❤️</p>
+    <div class="message">
+      <p><b>Aaj se ek nayi story shuru?</b></p>
+      <p>
+        Main promise nahi karunga ki har din perfect hoga,
+        lekin itna zaroor hai—main tumhari respect karunga,
+        tumhari baat sununga aur tumhe khush dekhne ki koshish karunga.
+      </p>
+      <p class="signature">— Someone who really likes you ❤️</p>
+    </div>
+    <button class="primary" onclick="makeHearts()">One More Surprise ✨</button>
+  </div>
+</section>
+
+<script>
+/* ====== PERSONALIZE HERE ====== */
+const HER_NAME = "Someone Special";   // yahan uska naam likho
+/* ================================= */
+
+document.getElementById("herName").textContent = HER_NAME;
+
+function show(id){
+  document.querySelectorAll(".page").forEach(x=>x.classList.add("hidden"));
+  document.getElementById(id).classList.remove("hidden");
+  window.scrollTo(0,0);
+}
+
+function no(){
+  const b=document.getElementById("noBtn");
+  const x=Math.random()*180-90, y=Math.random()*100-50;
+  b.style.transform=`translate(${x}px,${y}px)`;
+}
+
+function yes(){
+  show("yes");
+  makeHearts();
+}
+
+function makeHearts(){
+  for(let i=0;i<45;i++){
+    setTimeout(()=>{
+      const e=document.createElement("div");
+      e.className="floating";
+      e.textContent=["❤️","💖","💕","✨","🌹"][Math.floor(Math.random()*5)];
+      e.style.left=Math.random()*100+"vw";
+      e.style.bottom="-30px";
+      e.style.fontSize=(16+Math.random()*22)+"px";
+      e.style.animationDuration=(3+Math.random()*3)+"s";
+      document.body.appendChild(e);
+      setTimeout(()=>e.remove(),6500);
+    },i*70);
+  }
+}
+
+/* subtle background particles */
+const c=document.getElementById("fx"),ctx=c.getContext("2d");
+function resize(){c.width=innerWidth*devicePixelRatio;c.height=innerHeight*devicePixelRatio;ctx.scale(devicePixelRatio,devicePixelRatio)}
+resize(); addEventListener("resize",resize);
+let dots=Array.from({length:55},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*1.8+.5,v:Math.random()*.35+.1}));
+function draw(){
+  ctx.clearRect(0,0,innerWidth,innerHeight);
+  ctx.fillStyle="rgba(255,150,200,.55)";
+  dots.forEach(d=>{d.y-=d.v;if(d.y<0)d.y=innerHeight;ctx.beginPath();ctx.arc(d.x,d.y,d.r,0,Math.PI*2);ctx.fill()});
+  requestAnimationFrame(draw);
+}
+draw();
+</script>
+</body>
+</html>
